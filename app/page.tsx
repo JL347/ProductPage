@@ -56,22 +56,34 @@ export default function Home() {
     sales: [],
   }
 
-  console.log(product)
-
-  // format currency
   const formatCurrency = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 
   return (
     <>
       <div>
         <div className="hidden sm:fixed sm:inset-y-0 sm:z-50 sm:flex sm:w-72 sm:flex-col">
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-            <div className="flex h-16 shrink-0 items-center">
-              <Image src={stacklineLogo} alt="Stackline Logo" height={100} width={100} className="bg-sky-800 p-2 rounded-md" />
+          <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r border-gray-200 bg-white px-6">
+            <div className="flex h-12 shrink-0 justify-center my-2">
+              <Image src={stacklineLogo} alt="Stackline Logo" height={50} width={150} className="bg-sky-800 p-2 rounded-md" />
             </div>
-            <div>
+            <div className="flex justify-center">
               <Image loader={() => product.image} src={product.image} alt={product.title} height={150} width={150} />
             </div>
+            <h1 className="text-center text-xl font-semibold text-gray-900">
+              {product.title}
+            </h1>
+            <p className="text-center text-sm text-gray-500 border-b border-gray-200 pb-2">
+              {product.subtitle}
+            </p>
+            {product.tags.length > 0 && (
+              <div className="flex justify-center gap-2 text-wrap">
+                {product.tags.map((tag) => (
+                  <span key={tag} className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
