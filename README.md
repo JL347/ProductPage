@@ -1,4 +1,4 @@
-# Stackline Web Page
+# Stackline Product Page
 
 ## Technologies Used
 
