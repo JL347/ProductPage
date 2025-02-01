@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import stacklineLogo from '../public/stackline_logo.svg'
 import dayjs from 'dayjs'
+import Chart from './components/Chart'
 
 interface Product {
   id: string;
@@ -90,7 +91,7 @@ export default function Home() {
         <main className="py-10 sm:pl-72">
           <div className="px-4 sm:px-8">
             <div>
-              {/* Your header content */}
+              <Chart sales={product.sales} />
             </div>
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="mt-8 flow-root">
