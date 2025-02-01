@@ -34,12 +34,27 @@ interface Product {
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    fetch('/data.json')
-    .then((res) => res.json())
-    .then((data) => setProducts(data))
-  }, [])
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/data.json');
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const product = products[0] || {
     id: '',
@@ -58,6 +73,9 @@ export default function Home() {
   }
 
   const formatCurrency = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+
+  if (loading) return <div className="p-4 text-xl text-gray-900">Loading...</div>
+  if (error) return <div className="p-4 text-xl text-gray-900">Error: {error.message}</div>
 
   return (
     <>
